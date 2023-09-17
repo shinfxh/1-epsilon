@@ -15,13 +15,14 @@
     }
 
 	export let fn;
+	export let name;
 </script>
 
 <div class="othercard">
 	<img src={welcome_fallback} alt="Avatar" style="width:100%">
 	<div class="container">
-	  <h4><b>Unknown</b></h4> 
-	  {#if fn === null}
+	  <h4><b>{name}</b></h4> 
+	  {#if fn == null}
 	  {:else}
 	  	<button on:click={fn}>Approach</button>
 	  {/if}
@@ -33,15 +34,20 @@
 {/if}
 
 <style>
+	button {
+		margin: auto;
+		display:block;
+	}
 	.othercard {
 	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	  transition: 0.3s;
-	  width: 40%;
+	  min-width: 40px;
 	  border-radius: 5px;
 	}
 
 	h4 {
 		color:rgb(255, 255, 255);
+		text-align: center;
 	}
 	
 	.othercard:hover {
@@ -50,6 +56,8 @@
 	
 	img {
 	  border-radius: 5px 5px 0 0;
+	  margin: auto;
+	  display:block;
 	}
 	
 	.container {

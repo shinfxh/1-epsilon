@@ -3,6 +3,7 @@
 	import user2 from '$lib/images/user2.png';
 	export let resetfn;
 	export let messages;
+	export let name;
 	/*
 	function submitfn(e){
 		console.log(
@@ -26,108 +27,67 @@
 
 <div class="chatbox">
 
+	<div class="container">
 
-	{#each messages as message, index}
-		{#if message[0] == "jianzhi"}
-		<p>Outgoing: </p>
-		<li>{index + 1}</li>
-		<li>{message}</li>
-
-		{:else}
-		<p>Incoming: </p>
-		<li>{index + 1}</li>
-		<li>{message}</li>
-
-		{/if}
-	{/each}
-
-    <div class="container">
 		<!-- msg-header section starts -->
 		<div class="msg-header">
-		  <div class="container1">
-			<img src={user1} class="msgimg" />
-			<div class="active">
-			  <p>User name</p>
+			<div class="container1">
+			  <img src={user1} class="msgimg" />
+			  <div class="active">
+				<p>{name}</p>
+			  </div>
 			</div>
 		  </div>
-		</div>
-		<!-- msg-header section ends -->
-  
+		  <!-- msg-header section ends -->
+		
+
+
 		<!-- Chat inbox  -->
 		<div class="chat-page">
 		  <div class="msg-inbox">
 			<div class="chats">
 			  <!-- Message container -->
 			  <div class="msg-page">
+
+				{#each messages as message, index}
+				{#if message[0] == "jianzhi"}
+				<!-- Outgoing messages -->
+					<div class="outgoing-chats">
+						<div class="outgoing-chats-img">
+						<img src={user1} />
+						</div>
+						<div class="outgoing-msg">
+						<div class="outgoing-chats-msg">
+							<p class="multi-msg">
+								{message}
+							</p>
+
+							<span class="time">18:30 PM | July 24</span>
+						</div>
+						</div>
+				  	</div>
+		
+				{:else}
+
 				<!-- Incoming messages -->
   
 				<div class="received-chats">
-				  <div class="received-chats-img">
-					<img src={user2} />
-				  </div>
-				  <div class="received-msg">
-					<div class="received-msg-inbox">
-					  <p>
-						Hi !! This is message from Riya . Lorem ipsum, dolor sit
-						amet consectetur adipisicing elit. Non quas nemo eum,
-						earum sunt, nobis similique quisquam eveniet pariatur
-						commodi modi voluptatibus iusto omnis harum illum iste
-						distinctio expedita illo!
-					  </p>
-					  <span class="time">18:06 PM | July 24</span>
+					<div class="received-chats-img">
+					  <img src={user2} />
+					</div>
+					<div class="received-msg">
+					  <div class="received-msg-inbox">
+						<p>
+							{message}
+						</p>
+						<span class="time">18:06 PM | July 24</span>
+					  </div>
 					</div>
 				  </div>
-				</div>
-				<!-- Outgoing messages -->
-				<div class="outgoing-chats">
-				  <div class="outgoing-chats-img">
-					<img src={user1} />
-				  </div>
-				  <div class="outgoing-msg">
-					<div class="outgoing-chats-msg">
-					  <p class="multi-msg">
-						Hi riya , Lorem ipsum dolor sit amet consectetur
-						adipisicing elit. Illo nobis deleniti earum magni
-						recusandae assumenda.
-					  </p>
-					  <p class="multi-msg">
-						Lorem ipsum dolor sit amet consectetur.
-					  </p>
-  
-					  <span class="time">18:30 PM | July 24</span>
-					</div>
-				  </div>
-				</div>
-				<div class="received-chats">
-				  <div class="received-chats-img">
-					<img src={user2} />
-				  </div>
-				  <div class="received-msg">
-					<div class="received-msg-inbox">
-					  <p class="single-msg">
-						Hi !! This is message from John Lewis. Lorem ipsum, dolor
-						sit amet consectetur adipisicing elit. iste distinctio
-						expedita illo!
-					  </p>
-					  <span class="time">18:31 PM | July 24</span>
-					</div>
-				  </div>
-				</div>
-				<div class="outgoing-chats">
-				  <div class="outgoing-chats-img">
-					<img src={user1} />
-				  </div>
-				  <div class="outgoing-msg">
-					<div class="outgoing-chats-msg">
-					  <p>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Velit, sequi.
-					  </p>
-  
-					  <span class="time">18:34 PM | July 24</span>
-					</div>
-				  </div>
-				</div>
+		
+					{/if}
+				{/each}
+
 			  </div>
 			</div>
   
@@ -170,7 +130,7 @@
 }
 
 p {
-	color:white;
+	color:black;
 }
 
 li {
@@ -211,7 +171,7 @@ img {
 }
 
 .container1 {
-    width: 270px;
+    width: 750px;
     height: auto; 
     float: left;
     margin: 0;

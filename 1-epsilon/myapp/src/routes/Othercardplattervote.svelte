@@ -3,20 +3,21 @@
 	let card = 1;
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
 	import Othercard from './Othercard.svelte';
+	export let namesList;
 
 </script>
 
 <div class="othercardplattervote">
 	<div id = "leftbox">
-		<Othercard/>
+		<Othercard name={namesList[0]}/>
 	</div>
 	 
 	<div id = "middlebox">
-		<Othercard/>
+		<Othercard name={namesList[1]}/>
 	</div>
 	 
 	<div id = "rightbox">
-		<Othercard/>
+		<Othercard name={namesList[2]}/>
 	</div>
 </div>
   

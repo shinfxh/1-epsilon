@@ -1,33 +1,42 @@
 <script>
-	let role = 0;
-	let card = 1;
+	export let role;
+	export let name;
 	import welcome_fallback from '$lib/images/user1.png';
 </script>
 
-<div class="card" style="margin: auto;">
-	<img src={welcome_fallback} alt="Avatar" style="width:100%">
+<div class="cardspecial" style="margin: auto;">
+	<img src={welcome_fallback} alt="Avatar">
 	<div class="container">
-	  <h4><b>Jane Doe</b></h4> 
-	  <p>Interior Designer</p> 
+	  <h4><b>{name}</b></h4> 
+	  <p>{role}</p> 
 	</div>
 </div>
   
 
 <style>
-	.card {
+	.cardspecial {
 	  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	  transition: 0.3s;
-	  width: 40%;
+	  min-width: 40px;
 	  border-radius: 5px;
-	  background: #8d59f4;
+	  text-align: center;
+	  max-height: 40px;
+	}
+
+	h4 {
+		color: white;
+	}
+	p {
+		color: white;
 	}
 	
-	.card:hover {
+	.cardspecial:hover {
 	  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 	}
 	
 	img {
 	  border-radius: 5px 5px 0 0;
+	  margin: auto;
 	}
 	
 	.container {

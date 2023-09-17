@@ -7,19 +7,20 @@
 	export let fn1;
 	export let fn2;
 	export let fn3;
+	export let namesList;
 </script>
 
-<div class="othercardplatter">
+<div class="othercardplatter" style="background-color:red;">
 	<div id = "leftbox">
-		<Othercard fn={fn1}/>
+		<Othercard fn={fn1} name={namesList[0]}/>
 	</div>
 	 
 	<div id = "middlebox">
-		<Othercard fn={fn2}/>
+		<Othercard fn={fn2} name={namesList[1]}/>
 	</div>
 	 
 	<div id = "rightbox">
-		<Othercard fn={fn3}/>
+		<Othercard fn={fn3} name={namesList[2]}/>
 	</div>
 </div>
   
