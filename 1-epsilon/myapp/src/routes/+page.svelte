@@ -71,20 +71,38 @@
 	let start = true;
 	let vote = false;
 	let visible_array = [false, false, false];
-	function toggleVisible1(){
+	async function toggleVisible1(){
 		visible_array[0] = !visible_array[0];
 		visible_array[1] = 0;
 		visible_array[2] = 0;
+		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages1 = data;
+		});
 	}
 	function toggleVisible2(){
 		visible_array[0] = 0;
 		visible_array[1] = !visible_array[1];
 		visible_array[2] = 0;
+		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages1 = data;
+		});
 	}
 	function toggleVisible3(){
 		visible_array[0] = 0;
 		visible_array[1] = 0;
 		visible_array[2] = !visible_array[2];
+		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages1 = data;
+		});
 	}
 
 	function toggleReset(){
@@ -118,6 +136,10 @@
 	// 2: CHAT
 	// 3: VOTE
 	// 4: NEWS FLASH
+
+	let messages1 = [];
+	let messages2 = [];
+	let messages3 = [];
 
 	function toggleState(newState){
 		if (state == 0){
@@ -188,11 +210,11 @@
 			{:else}
 
 				{#if visible_array[0]}
-					<Chatbox name={arrayOfNames[0]} resetfn={toggleReset} messages={[["jianzhi", "wang"], ["blah", "blah"]]}/>
+					<Chatbox name={arrayOfNames[0]} resetfn={toggleReset} messages={messages1}/>
 				{:else if visible_array[1]}
-					<Chatbox name={arrayOfNames[1]} resetfn={toggleReset} messages={[["j", "w"], ["b", "b"]]}/>
+					<Chatbox name={arrayOfNames[1]} resetfn={toggleReset} messages={messages2}/>
 				{:else if visible_array[2]}
-					<Chatbox name={arrayOfNames[2]} resetfn={toggleReset} messages={[["joel", "tan"], ["jun", "yao"]]}/>
+					<Chatbox name={arrayOfNames[2]} resetfn={toggleReset} messages={messages3}/>
 				{:else}
 					<div>
 						<div>

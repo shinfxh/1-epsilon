@@ -22,14 +22,18 @@ invUserMap = dict()
 for row in cursor:
     userMap[row[0]] = row[1]
     invUserMap[row[1]] = row[0]
+    print(row[0], row[1])
 conn.close()
 
-def getSomeMessage(p1 = 'Ethan', p2 = 'Daniel'):
-    #args = request.args
-    #p1, p2 = args['p1'], args['p2']
+@app.route('/getMessages', methods = ['GET'])
+def getSomeMessage():
+    args = request.args
+    p1, p2 = args['p1'], args['p2']
+    print(p1, p2)
     conn = sqlite3.connect('db.db')
     a = invUserMap[p1]
     b = invUserMap[p2]
+    print(a, b)
     cursor = conn.execute("""SELECT ID, SENDERID, RECEIVERID, CONTENT from MESSAGE WHERE SENDERID={} AND RECEIVERID={} OR SENDERID={} AND RECEIVERID={}""".format(a, b, b, a))
     content = []
     for row in cursor:
@@ -39,7 +43,9 @@ def getSomeMessage(p1 = 'Ethan', p2 = 'Daniel'):
             "content": row[3]
         })
     conn.close()
-    return content
+    print("DONE HERE!")
+    print(content)
+    return jsonify(content)
 
 def promptGen(ls, responder, other):
     starting_prompt = f'''

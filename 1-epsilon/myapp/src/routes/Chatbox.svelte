@@ -17,7 +17,7 @@
 		console.log("I'm the validate() function")
 	}
 
-	function submitfn(e){
+	async function submitfn(e){
 		const form = document.getElementById('message');
 		console.log("HIHI");
 		console.log(form.value);
@@ -39,8 +39,6 @@
 			</div>
 		  </div>
 		  <!-- msg-header section ends -->
-		
-
 
 		<!-- Chat inbox  -->
 		<div class="chat-page">
@@ -50,7 +48,7 @@
 			  <div class="msg-page">
 
 				{#each messages as message, index}
-				{#if message[0] == "jianzhi"}
+				{#if message["receiver"] == name}
 				<!-- Outgoing messages -->
 					<div class="outgoing-chats">
 						<div class="outgoing-chats-img">
@@ -59,10 +57,8 @@
 						<div class="outgoing-msg">
 						<div class="outgoing-chats-msg">
 							<p class="multi-msg">
-								{message}
+								{message["content"]}
 							</p>
-
-							<span class="time">18:30 PM | July 24</span>
 						</div>
 						</div>
 				  	</div>
@@ -78,9 +74,8 @@
 					<div class="received-msg">
 					  <div class="received-msg-inbox">
 						<p>
-							{message}
+							{message["content"]}
 						</p>
-						<span class="time">18:06 PM | July 24</span>
 					  </div>
 					</div>
 				  </div>
