@@ -130,11 +130,11 @@
 			{:else}
 
 				{#if visible_array[0]}
-					<Chatbox resetfn={toggleReset}/>
+					<Chatbox resetfn={toggleReset} messages={[["jianzhi", "wang"], ["blah", "blah"]]}/>
 				{:else if visible_array[1]}
-					<Chatbox resetfn={toggleReset}/>
+					<Chatbox resetfn={toggleReset} messages={[["j", "w"], ["b", "b"]]}/>
 				{:else if visible_array[2]}
-					<Chatbox resetfn={toggleReset}/>
+					<Chatbox resetfn={toggleReset} messages={[["joel", "tan"], ["jun", "yao"]]}/>
 				{:else}
 					<div>
 						<div class="roundcounter">

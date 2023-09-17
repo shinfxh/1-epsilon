@@ -2,9 +2,45 @@
 	import user1 from '$lib/images/user1.png';
 	import user2 from '$lib/images/user2.png';
 	export let resetfn;
+	export let messages;
+	/*
+	function submitfn(e){
+		console.log(
+			"WHAT IS HAPPENING?"
+		);
+		console.log(e);
+	}
+	*/
+
+	function validate() {
+		console.log("I'm the validate() function")
+	}
+
+	function submitfn(e){
+		const form = document.getElementById('message');
+		console.log("HIHI");
+		console.log(form.value);
+	}
+
 </script>
 
 <div class="chatbox">
+
+
+	{#each messages as message, index}
+		{#if message[0] == "jianzhi"}
+		<p>Outgoing: </p>
+		<li>{index + 1}</li>
+		<li>{message}</li>
+
+		{:else}
+		<p>Incoming: </p>
+		<li>{index + 1}</li>
+		<li>{message}</li>
+
+		{/if}
+	{/each}
+
     <div class="container">
 		<!-- msg-header section starts -->
 		<div class="msg-header">
@@ -98,17 +134,26 @@
 			<!-- msg-bottom section -->
   
 			<div class="msg-bottom">
-			  <div class="input-group">
-				<input
-				  type="text"
-				  class="form-control"
-				  placeholder="Write message..."
-				/>
-  
-				<span class="input-group-text send-icon">
-				  <i class="bi bi-send"></i>
-				</span>
-			  </div>
+
+				<form on:submit={submitfn} id="signup">
+					<div class="input-group">
+						<input
+						  type="text"
+						  class="form-control"
+						  placeholder="Write message..."
+						  id="message"
+						/>
+		  
+						<!--<span class="input-group-text send-icon">
+						  <i class="bi bi-send"></i>
+						</span>-->
+						
+						
+		
+						<button type="submit">Submit</button>
+					  </div>
+				</form>
+
 			</div>
 		  </div>
 		</div>
@@ -122,6 +167,14 @@
 * {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+}
+
+p {
+	color:white;
+}
+
+li {
+	color:white;
 }
 
 /* Styling the main container */
