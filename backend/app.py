@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 openAIEnabled = True
-openai.api_key = "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"
+openai.api_key = ""
 openAIengine = 'text-davinci-003'
 
 def init():
