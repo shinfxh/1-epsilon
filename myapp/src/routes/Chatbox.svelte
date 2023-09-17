@@ -5,6 +5,7 @@
 	export let messages;
 	export let name;
     export let refresh;
+    export let otherRole;
 	/*
 	function submitfn(e){
 		console.log(
@@ -29,7 +30,7 @@
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({"responder": "Player", "other":name, "response":form.value})
+            body: JSON.stringify({"responder": "Player", "other":name, "response":form.value, "otherRole":otherRole})
         }).then(response => {
             console.log(response); 
             refresh();
@@ -106,7 +107,7 @@
 			<div class="msg-bottom">
 
 				<form on:submit={submitfn} id="signup">
-					<div class="input-group">
+					<div class="input-group" style="width:300px">
 						<input
 						  type="text"
 						  class="form-control"
@@ -117,10 +118,8 @@
 						<!--<span class="input-group-text send-icon">
 						  <i class="bi bi-send"></i>
 						</span>-->
-						
-						
 		
-						<button type="submit">Submit</button>
+						<button class="submit-button" type="submit">Submit</button>
 					  </div>
 				</form>
 
@@ -128,7 +127,7 @@
 		  </div>
 		</div>
 	  </div>
-	  <button on:click={resetfn}>Reset</button>
+	  <button class="reset-button" on:click={resetfn}>Reset</button>
 </div>
 
 
@@ -380,6 +379,47 @@ received-chats-img {
         font-size: 28px;
     }
 }
+
+.submit-button {
+		display:block;
+		margin:auto;
+        border: none;
+        padding: 0.5rem 2rem;
+        color: green;
+		background-color:lightgreen;
+        font-size: 1rem;
+        border-radius: 1rem;
+        transition: all 250ms;
+        transform-origin: center;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25),
+        inset 0px -2px 3px rgba(0, 0, 0, 0.25);
+    }
+.submit-button:hover {
+    cursor: pointer;
+    transform: scale(0.975);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.reset-button {
+		display:block;
+		margin:auto;
+        border: none;
+        padding: 0.5rem 2rem;
+        color: #888;
+		background-color:#fff;
+        font-size: 1.5rem;
+        border-radius: 1rem;
+        transition: all 250ms;
+        transform-origin: center;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25),
+        inset 0px -2px 3px rgba(0, 0, 0, 0.25);
+    }
+.reset-button:hover {
+    cursor: pointer;
+    transform: scale(0.975);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
 
 @media only screen and (max-device-width: 450px) {
     *,

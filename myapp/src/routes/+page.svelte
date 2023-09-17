@@ -375,11 +375,11 @@
 			{:else}
 
 				{#if visible_array[0]}
-					<Chatbox name={aha1} resetfn={toggleReset} messages={messages1} refresh={refresh1}/>
+					<Chatbox name={aha1} resetfn={toggleReset} messages={messages1} refresh={refresh1} otherRole={rowdict[playerDict[aha1]]}/>
 				{:else if visible_array[1]}
-					<Chatbox name={aha2} resetfn={toggleReset} messages={messages2} refresh={refresh2}/>
+					<Chatbox name={aha2} resetfn={toggleReset} messages={messages2} refresh={refresh2} otherRole={rowdict[playerDict[aha2]]}/>
 				{:else if visible_array[2]}
-					<Chatbox name={aha3} resetfn={toggleReset} messages={messages3} refresh={refresh3}/>
+					<Chatbox name={aha3} resetfn={toggleReset} messages={messages3} refresh={refresh3} otherRole={rowdict[playerDict[aha3]]}/>
 				{:else}
 					<div>
 						<div>
@@ -421,10 +421,26 @@
 	h3 {
 		color: white;
 	}
+         
 
-	button {
+    button {
 		display:block;
 		margin:auto;
-	}
+        border: none;
+        padding: 0.5rem 2rem;
+        color: #333;
+		background-color:#ffc4fa;
+        font-size: 1.5rem;
+        border-radius: 1rem;
+        transition: all 250ms;
+        transform-origin: center;
+        box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25),
+        inset 0px -2px 3px rgba(0, 0, 0, 0.25);
+    }
+    button:hover {
+        cursor: pointer;
+        transform: scale(0.975);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+    }
 
 </style>

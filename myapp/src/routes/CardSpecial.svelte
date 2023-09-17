@@ -2,10 +2,20 @@
 	export let role;
 	export let name;
 	import welcome_fallback from '$lib/images/user1.png';
+	import user_blue from '$lib/images/user-blue.png';
+	import user_red from '$lib/images/user-red.png';
+	import user_assassin from '$lib/images/user-assassin.png';
 </script>
 
 <div class="cardspecial" style="margin: auto;">
-	<img src={welcome_fallback} alt="Avatar">
+	{#if role == "Assassin"}
+	<img src={user_assassin} alt="Avatar">
+	{:else if role == "Red"}
+	<img src={user_red} alt="Avatar">
+	{:else}
+	<img src={user_blue} alt="Avatar">
+	{/if}
+	
 	<div class="container">
 	  <h4><b>{name}</b></h4> 
 	  <p>{role}</p> 
