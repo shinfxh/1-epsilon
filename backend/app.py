@@ -134,7 +134,7 @@ def complete(prompt, bot, player): #always used on bot
         return "Sorry, I didn't catch what you said. Could you repeat that again?"
     
 def updateProbabilities(ls, p1, p2):
-    userMap, invUserMap = init()
+    userMap, invUserMap, _, _ = init()
     #p2 last said something to p1, p1 updates their probabilities of p2
     a = invUserMap[p1]
     b = invUserMap[p2]
@@ -160,7 +160,7 @@ def updateProbabilities(ls, p1, p2):
     return new_prob
 
 def updateDB(response, responder, other):
-    userMap, invUserMap = init()
+    userMap, invUserMap, _, _ = init()
     # args = request.args
     # response, responder, other = args['response'], args['responder'], args['other']
     conn = sqlite3.connect('db.db')

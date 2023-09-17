@@ -375,11 +375,11 @@
 			{:else}
 
 				{#if visible_array[0]}
-					<Chatbox name={aha1} resetfn={toggleReset} messages={messages1} refresh={refresh1} otherRole={rowdict[playerDict[aha1]]}/>
+					<Chatbox name={aha1} resetfn={toggleReset} messages={messages1} refresh={refresh1} otherRole={rowdict[playerDict[aha1]]} role={rowdict[playerDict["Player"]]}/>
 				{:else if visible_array[1]}
-					<Chatbox name={aha2} resetfn={toggleReset} messages={messages2} refresh={refresh2} otherRole={rowdict[playerDict[aha2]]}/>
+					<Chatbox name={aha2} resetfn={toggleReset} messages={messages2} refresh={refresh2} otherRole={rowdict[playerDict[aha2]]} role={rowdict[playerDict["Player"]]}/>
 				{:else if visible_array[2]}
-					<Chatbox name={aha3} resetfn={toggleReset} messages={messages3} refresh={refresh3} otherRole={rowdict[playerDict[aha3]]}/>
+					<Chatbox name={aha3} resetfn={toggleReset} messages={messages3} refresh={refresh3} otherRole={rowdict[playerDict[aha3]]} role={rowdict[playerDict["Player"]]}/>
 				{:else}
 					<div>
 						<div>

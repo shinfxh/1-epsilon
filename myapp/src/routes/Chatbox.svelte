@@ -6,6 +6,10 @@
 	export let name;
     export let refresh;
     export let otherRole;
+	import user_blue from '$lib/images/user-blue.png';
+	import user_red from '$lib/images/user-red.png';
+	import user_assassin from '$lib/images/user-assassin.png';
+    export let role;
 	/*
 	function submitfn(e){
 		console.log(
@@ -68,7 +72,13 @@
 				<!-- Outgoing messages -->
 					<div class="outgoing-chats">
 						<div class="outgoing-chats-img">
-						<img src={user1} />
+                            {#if role == "Assassin"}
+                            <img src={user_assassin} alt="Avatar">
+                            {:else if role == "Red"}
+                            <img src={user_red} alt="Avatar">
+                            {:else}
+                            <img src={user_blue} alt="Avatar">
+                            {/if}
 						</div>
 						<div class="outgoing-msg">
 						<div class="outgoing-chats-msg">
