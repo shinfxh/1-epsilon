@@ -33,6 +33,7 @@
         }).then(response => {
             console.log(response); 
             refresh();
+            form.value = ""; // reset form value
             return response.json()
         });
 	}

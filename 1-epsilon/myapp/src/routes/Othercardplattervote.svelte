@@ -2,22 +2,24 @@
 	let role = 0;
 	let card = 1;
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
-	import Othercard from './Othercard.svelte';
+	import Othercardvote from './Othercardvote.svelte';
 	export let namesList;
-
+	export let fn1;
+	export let fn2;
+	export let fn3;
 </script>
 
 <div class="othercardplattervote">
 	<div id = "leftbox">
-		<Othercard name={namesList[0]}/>
+		<Othercardvote fn={fn1} name={namesList[0]}/>
 	</div>
 	 
 	<div id = "middlebox">
-		<Othercard name={namesList[1]}/>
+		<Othercardvote fn={fn2} name={namesList[1]}/>
 	</div>
 	 
 	<div id = "rightbox">
-		<Othercard name={namesList[2]}/>
+		<Othercardvote fn={fn3} name={namesList[2]}/>
 	</div>
 </div>
   
