@@ -4,6 +4,7 @@
 	export let resetfn;
 	export let messages;
 	export let name;
+    export let refresh;
 	/*
 	function submitfn(e){
 		console.log(
@@ -21,6 +22,19 @@
 		const form = document.getElementById('message');
 		console.log("HIHI");
 		console.log(form.value);
+        fetch("http://localhost:5000/sendMessage", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({"responder": "Player", "other":name, "response":form.value})
+        }).then(response => {
+            console.log(response); 
+            refresh();
+            return response.json()
+        });
 	}
 
 </script>

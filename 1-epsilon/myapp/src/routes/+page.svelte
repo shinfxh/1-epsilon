@@ -75,33 +75,58 @@
 		visible_array[0] = !visible_array[0];
 		visible_array[1] = 0;
 		visible_array[2] = 0;
-		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[0])
 		.then((response) => response.json())
 		.then((data) => {
 			console.log(data);
 			messages1 = data;
 		});
 	}
-	function toggleVisible2(){
+
+	async function refresh1(){
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[0])
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages1 = data;
+		});
+	}
+	async function toggleVisible2(){
 		visible_array[0] = 0;
 		visible_array[1] = !visible_array[1];
 		visible_array[2] = 0;
-		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[1])
 		.then((response) => response.json())
 		.then((data) => {
 			console.log(data);
 			messages1 = data;
 		});
 	}
-	function toggleVisible3(){
+	async function refresh2(){
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[1])
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages2 = data;
+		});
+	}
+	async function toggleVisible3(){
 		visible_array[0] = 0;
 		visible_array[1] = 0;
 		visible_array[2] = !visible_array[2];
-		fetch('http://localhost:5000/getMessages?p1=Daniel&p2=Ethan')
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[2])
 		.then((response) => response.json())
 		.then((data) => {
 			console.log(data);
 			messages1 = data;
+		});
+	}
+	async function refresh3(){
+		fetch('http://localhost:5000/getMessages?p1=Player&p2=' + arrayOfNames[2])
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data);
+			messages3 = data;
 		});
 	}
 
@@ -210,11 +235,11 @@
 			{:else}
 
 				{#if visible_array[0]}
-					<Chatbox name={arrayOfNames[0]} resetfn={toggleReset} messages={messages1}/>
+					<Chatbox name={arrayOfNames[0]} resetfn={toggleReset} messages={messages1} refresh={refresh1}/>
 				{:else if visible_array[1]}
-					<Chatbox name={arrayOfNames[1]} resetfn={toggleReset} messages={messages2}/>
+					<Chatbox name={arrayOfNames[1]} resetfn={toggleReset} messages={messages2} refresh={refresh2}/>
 				{:else if visible_array[2]}
-					<Chatbox name={arrayOfNames[2]} resetfn={toggleReset} messages={messages3}/>
+					<Chatbox name={arrayOfNames[2]} resetfn={toggleReset} messages={messages3} refresh={refresh3}/>
 				{:else}
 					<div>
 						<div>

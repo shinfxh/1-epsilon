@@ -15,18 +15,21 @@ openAIEnabled = True
 openai.api_key = "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"
 openAIengine = 'text-davinci-003'
 
-conn = sqlite3.connect('db.db')
-cursor = conn.execute("SELECT ID, NAME, ROLE, TALK, LIE from USER")
-userMap = dict()
-invUserMap = dict()
-for row in cursor:
-    userMap[row[0]] = row[1]
-    invUserMap[row[1]] = row[0]
-    print(row[0], row[1])
-conn.close()
+def init():
+    conn = sqlite3.connect('db.db')
+    cursor = conn.execute("SELECT ID, NAME, ROLE, TALK, LIE from USER")
+    userMap = dict()
+    invUserMap = dict()
+    for row in cursor:
+        userMap[row[0]] = row[1]
+        invUserMap[row[1]] = row[0]
+        print(row[0], row[1])
+    conn.close()
+    return userMap, invUserMap
 
 @app.route('/getMessages', methods = ['GET'])
 def getSomeMessage():
+    userMap, invUserMap = init()
     args = request.args
     p1, p2 = args['p1'], args['p2']
     print(p1, p2)
@@ -47,16 +50,35 @@ def getSomeMessage():
     print(content)
     return jsonify(content)
 
+def getSomeMessageList(p1, p2):
+    userMap, invUserMap = init()
+    conn = sqlite3.connect('db.db')
+    a = invUserMap[p1]
+    b = invUserMap[p2]
+    print(a, b)
+    cursor = conn.execute("""SELECT ID, SENDERID, RECEIVERID, CONTENT from MESSAGE WHERE SENDERID={} AND RECEIVERID={} OR SENDERID={} AND RECEIVERID={}""".format(a, b, b, a))
+    content = []
+    for row in cursor:
+        content.append({
+            "sender" : userMap[row[1]],
+            "receiver" : userMap[row[2]],
+            "content": row[3]
+        })
+    conn.close()
+    print("DONE HERE!")
+    print(content)
+    return content
+
 def promptGen(ls, responder, other):
     starting_prompt = f'''
-    You are {responder}. You are playing a game with other people. Everyone has roles assigned to them.
+    You are {other}. You are playing a game with other people. Everyone has roles assigned to them.
     You are assigned the role of Civilian. 
     Your job is to protect the President from the Assassin.
     '''
-    prompt = starting_prompt + """Here is a conversation between you and {}. \n""".format(other, other)
+    prompt = starting_prompt + """Here is a conversation between you and {}. \n""".format(responder)
     for row in ls:
         prompt += """{}: {}\n""".format(row["sender"], row["content"])
-    prompt += """{}:""".format(responder)
+    prompt += """{}:""".format(other)
     return prompt
 
 def parser(complete, other):
@@ -78,6 +100,7 @@ def complete(prompt, bot, player): #always used on bot
         return "Sorry, I didn't catch what you said. Could you repeat that again?"
     
 def updateProbabilities(ls, p1, p2):
+    userMap, invUserMap = init()
     #p2 last said something to p1, p1 updates their probabilities of p2
     a = invUserMap[p1]
     b = invUserMap[p2]
@@ -103,13 +126,55 @@ def updateProbabilities(ls, p1, p2):
     return new_prob
 
 def updateDB(response, responder, other):
+    userMap, invUserMap = init()
     # args = request.args
     # response, responder, other = args['response'], args['responder'], args['other']
     conn = sqlite3.connect('db.db')
-    cursor = conn.execute("""SELECT ROW from MESSAGE ORDER BY ID DESC LIMIT 1""")
-    last_id = cursor['ID']
+    cursor = conn.execute("""SELECT * from MESSAGE ORDER BY ID DESC LIMIT 1""")
+    last_id = 0
+    for row in cursor:
+        print(row)
+        last_id = int(row[0])
+    print("responder = ", responder)
+    print("other = ", other)
     sender_id = invUserMap[responder]
     receiver_id = invUserMap[other]
-    conn.execute(f"INSERT INTO MESSAGE (ID, SENDERID, RECEIVERID, CONTENT) \
-      VALUES ({last_id + 1}, {sender_id}, {receiver_id}, {response})")
     conn.close()
+    conn = sqlite3.connect('db.db')
+    print('sender_id = ', sender_id)
+    print("receiver_id = ", receiver_id)
+    print(f"INSERT INTO MESSAGE (ID, SENDERID, RECEIVERID, CONTENT) \
+      VALUES ({last_id + 1}, {sender_id}, {receiver_id}, \"{response}\")")
+    conn.execute(f"INSERT INTO MESSAGE (ID, SENDERID, RECEIVERID, CONTENT) \
+      VALUES ({last_id + 1}, {sender_id}, {receiver_id}, \"{response}\")")
+    conn.commit()
+    conn.close()
+
+@app.route('/sendMessage', methods = ['POST'])
+def sendMessage():
+    data = request.json
+    print("received {}".format(data))
+
+    # 1. first, update DB
+    updateDB(data["response"], data["responder"], data["other"])
+
+    print("update DB success")
+
+    # 2. get messages
+    messagesList = getSomeMessageList(data["responder"], data["other"])
+    print("messagesList", messagesList)
+
+    # 3. get prompt
+    prompt = promptGen(messagesList, data["responder"], data["other"])
+    print("prompt", prompt)
+    
+    # 4. get completion
+    completion = complete(prompt, None, data["other"]).strip()
+
+    print("completion = ", completion)
+
+    # 5. get the completion into the dataset
+    updateDB(completion, data["other"], data["responder"])
+
+    resp = "received"
+    return resp
